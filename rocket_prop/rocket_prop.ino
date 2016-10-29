@@ -4,8 +4,8 @@ frame rocket;
 
 void setup() {
   delay(10000);
-  rocket.boot_sequence();
-//  fans.halt_all();
+  rocket.boot();
+  rocket.halt_all();
 }
 
 void loop() {

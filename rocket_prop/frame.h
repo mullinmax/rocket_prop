@@ -1,17 +1,20 @@
-#include "prop_control_functions.h"
+#include "props.h"
+#include "sensors.h"
+#ifndef FRAME
+#define FRAME
 class frame {
   public:
     frame() {
-      //fans = props(1, 2, 3, 4);
-    }/*
-    void halt_all(){
+      
+    }
+    void halt_all() {
       fans.halt_all();
-    }*/
-    void boot_sequence() {
-      //fans.boot(5000);//spins the fans for 5 seconds
+    }
+    void boot() {
+      fans.boot();
     }
   private:
-   //props fans;
+    props fans = props(10, 9, 6, 5);
 
 };
-
+#endif

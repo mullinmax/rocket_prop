@@ -1,7 +1,17 @@
+#ifndef PROPS
+#define PROPS
+
 class props {
   public:
     //Initializes all the pins
     props(int north, int south, int east, int west) {
+      n_pin = north;
+      s_pin = south;
+      e_pin = east;
+      w_pin = west;
+    }
+
+    void set_pins(int north, int south, int east, int west) {
       n_pin = north;
       s_pin = south;
       e_pin = east;
@@ -86,3 +96,5 @@ class props {
     int start_pulse = 130;
     int pulse_range = maximum_pulse - minimum_pulse;
 };
+
+#endif
