@@ -15,8 +15,7 @@ class sensors {
       Serial.begin(9600);
     }
     void calibrate() {
-      read_values();
-      read_values();
+      read_values(400);
       cacx = acx;
       cacy = acy;
       cacz = acz;
@@ -43,7 +42,7 @@ class sensors {
       acx = (acx + pacx * s) / (s + 1);
       acy = (acy + pacy * s) / (s + 1);
       acz = (acz + pacz * s) / (s + 1);
-      tmp = (tmp + ptmp*s)/(s+1);
+      tmp = (tmp + ptmp * s) / (s + 1);
       gyx = (gyx + pgyx * s) / (s + 1);
       gyy = (gyy + pgyy * s) / (s + 1);
       gyz = (gyz + pgyz * s) / (s + 1);

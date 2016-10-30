@@ -14,18 +14,30 @@ class frame {
       fans.boot(t);
       sensor.boot();
     }
+    void test(){
+      fans.set_speed(50, 50, 50, 50);
+    }
 
     void control() {
       read_sensors();
-      if(sensor.acz < -10){
-        fans.set_speed(100, 0, 0, 0);
-      }else{
-        fans.set_speed(10, 0, 0, 0);
+
+      if (sensor.gyz < 0) {
+        if (sensor.gyy < 0) {
+          fans.set_speed(100, 0, 100, 0);
+        } else {
+          fans.set_speed(100, 0, 0, 0);
+        }
+      } else {
+        if (sensor.gyy < 0) {
+          fans.set_speed(0, 100, 0, 100);
+        } else {
+          fans.set_speed(0, 100, 100, 0);
+        }
       }
-      
+
     }
     void read_sensors() {
-      sensor.read_values();
+      sensor.read_values(400);
       sensor.smooth(400);
       Serial.print("AcX = "); Serial.print(sensor.acx);
       Serial.print(" | AcY = "); Serial.print(sensor.acy);

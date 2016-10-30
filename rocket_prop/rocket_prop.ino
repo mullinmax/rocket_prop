@@ -4,20 +4,18 @@ frame rocket;
 
 void setup() {
   delay(5000);
-  rocket.boot(1000);
-//  rocket.control();
-//  delay(10000);
-//  rocket.halt_all();
+  rocket.boot(2000);
+  rocket.test();
+  delay(5000);
 }
 
 void loop() {
-
-    rocket.control();
-//  rocket.control();
-//  //rocket.sense
-//  }else{
-//  rocket.halt_all();
-//  }
+  rocket.control();
+  if (millis() < 35000) {
+    while (true) {
+      rocket.halt_all();
+    }
+  }
 }
 
 
