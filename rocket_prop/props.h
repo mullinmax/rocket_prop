@@ -21,14 +21,10 @@ class props {
     //starts fans spinning
     void boot(int t) {
       analogWrite(n_pin, start_pulse);
-      analogWrite(s_pin, start_pulse);
-      analogWrite(e_pin, start_pulse);
-      analogWrite(w_pin, start_pulse);
+      //analogWrite(s_pin, start_pulse);
+      //analogWrite(e_pin, start_pulse);
+      //analogWrite(w_pin, start_pulse);
       delay(t);
-    }
-    //default start idle of 5 seconds
-    void boot() {
-      boot(5000);
     }
 
     //completely stops all fans
