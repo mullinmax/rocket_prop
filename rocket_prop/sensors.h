@@ -16,11 +16,12 @@ class sensors {
     }
     
     void calibrate() {
-      read_values(400);
+      read_values(0);
+      read_values(1);
+      read_values(2);
       cacx = acx;
       cacy = acy;
       cacz = acz;
-      ctmp = tmp;
       cgyx = gyx;
       cgyy = gyy;
       cgyz = gyz;
@@ -39,6 +40,12 @@ class sensors {
       gyy = Wire.read() << 8 | Wire.read(); // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
       gyz = Wire.read() << 8 | Wire.read(); // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
       smooth(s);
+      acx -= cacx;
+      acy -= cacy;
+      acz -= cacz;
+      gyx -= cgyx;
+      gyy -= cgyy;
+      gyz -= cgyz;
     }
     
     void smooth(float s) {
@@ -54,6 +61,6 @@ class sensors {
     int address = 0x68;
     float acx, acy, acz, tmp, gyx, gyy, gyz;
     float pacx, pacy, pacz, ptmp, pgyx, pgyy, pgyz;
-    float cacx, cacy, cacz, ctmp, cgyx, cgyy, cgyz;
+    float cacx = 0, cacy = 0, cacz = 0, cgyx = 0, cgyy = 0, cgyz = 0;
 };
 #endif
