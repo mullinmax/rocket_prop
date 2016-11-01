@@ -19,12 +19,19 @@ class props {
     }
 
     //starts fans spinning
-    void boot(int t) {
+    void boot() {
       analogWrite(n_pin, start_pulse);
       analogWrite(s_pin, start_pulse);
       analogWrite(e_pin, start_pulse);
       analogWrite(w_pin, start_pulse);
-      delay(t);
+      delay(2000);
+      for (int i = start_pulse; i <= minimum_pulse; i++) {
+        analogWrite(n_pin, i);
+        analogWrite(s_pin, i);
+        analogWrite(e_pin, i);
+        analogWrite(w_pin, i);
+        delay(40);
+      }
     }
 
     //completely stops all fans
@@ -37,26 +44,43 @@ class props {
 
     //sets the speed on a scale of 0 to 100 of each individual fan
     void set_speed(int n_speed, int s_speed, int e_speed, int w_speed) {
+      int tmp_n_vel;
+      int tmp_s_vel;
+      int tmp_e_vel;
+      int tmp_w_vel;
       if (n_speed <= 100 && n_speed >= 0) {
         n_percent = n_speed;
-        n_vel = pulse_range * n_speed / 100.0;
-        n_vel += minimum_pulse;
+        tmp_n_vel = pulse_range * n_speed / 100.0;
+      }else if(n_speed > 100){
+        tmp_n_vel = pulse_range;
       }
       if (s_speed <= 100 && s_speed >= 0) {
         s_percent = s_speed;
-        s_vel = pulse_range * s_speed / 100.0;
-        s_vel += minimum_pulse;
+        tmp_s_vel = pulse_range * s_speed / 100.0;
+      }else if(s_speed > 100){
+        tmp_s_vel = pulse_range;
       }
       if (e_speed <= 100 && e_speed >= 0) {
         e_percent = e_speed;
-        e_vel = pulse_range * e_speed / 100.0;
-        e_vel += minimum_pulse;
+        tmp_e_vel = pulse_range * e_speed / 100.0;
+      }else if(w_speed > 100){
+        tmp_e_vel = pulse_range;
       }
       if (w_speed <= 100 && w_speed >= 0) {
         w_percent = w_speed;
-        w_vel = pulse_range * w_speed / 100.0;
-        w_vel += minimum_pulse;
+        tmp_w_vel = pulse_range * w_speed / 100.0;
+      }else if(w_speed > 100){
+        tmp_w_vel = pulse_range;
       }
+      tmp_n_vel += minimum_pulse;
+      tmp_s_vel += minimum_pulse;
+      tmp_e_vel += minimum_pulse;
+      tmp_w_vel += minimum_pulse;
+      int s = 4;
+      n_vel = (n_vel*4+tmp_n_vel)/(s+1);
+      s_vel = (s_vel*4+tmp_s_vel)/(s+1);
+      e_vel = (e_vel*4+tmp_e_vel)/(s+1);
+      w_vel = (w_vel*4+tmp_w_vel)/(s+1);
       analogWrite(n_pin, n_vel);
       analogWrite(s_pin, s_vel);
       analogWrite(e_pin, e_vel);
@@ -68,7 +92,7 @@ class props {
     }
     //increments the current speed of the fans
     void add_speed(int n_speed, int s_speed, int e_speed, int w_speed) {
-      set_speed((n_percent + n_speed) % 101, (s_percent + s_speed) % 101, (e_percent + e_speed) % 101, (w_percent + w_speed) % 101);
+      set_speed((n_percent + n_speed), (s_percent + s_speed), (e_percent + e_speed), (w_percent + w_speed));
     }
 
   private:
@@ -88,7 +112,7 @@ class props {
     int w_percent = 0;
 
     int maximum_pulse = 180;
-    int minimum_pulse = 150;
+    int minimum_pulse = 155;
     int start_pulse = 130;
     int pulse_range = maximum_pulse - minimum_pulse;
 };

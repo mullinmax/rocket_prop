@@ -4,9 +4,8 @@ frame rocket;
 
 void setup() {
   delay(5000);
-  rocket.boot(2000);
-  //rocket.test();
-  delay(2000);
+  rocket.boot();
+  delay(5000);
 }
 
 void loop() {

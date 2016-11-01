@@ -10,32 +10,32 @@ class frame {
     void halt_all() {
       fans.halt_all();
     }
-    void boot(int t) {
-      fans.boot(t);
+    void boot() {
+      fans.boot();
       sensor.boot();
     }
-    void test(){
+    void test() {
       fans.set_speed(50, 50, 50, 50);
     }
 
     void control() {
       read_sensors();
-
-      if (sensor.gyz < 0) {
+      int tol = 100;
+      if (sensor.gyy + tol < 0) {
         if (sensor.gyy < 0) {
-          fans.set_speed(100, 0, 100, 0);
+          fans.set_speed(50, 1, 50, 1);
         } else {
-          fans.set_speed(100, 0, 0, 0);
+          fans.set_speed(50, 1, 1, 1);
         }
-      } else {
+      } else if (sensor.gyy - tol > 0) {
         if (sensor.gyy < 0) {
-          fans.set_speed(0, 100, 0, 100);
+          fans.set_speed(1, 50, 1, 50);
         } else {
-          fans.set_speed(0, 100, 100, 0);
+          fans.set_speed(1, 50, 50, 1);
         }
       }
-
     }
+    
     void read_sensors() {
       sensor.read_values(400);
       sensor.smooth(400);
@@ -48,7 +48,7 @@ class frame {
       Serial.print(" | GyZ = "); Serial.println(sensor.gyz);
     }
   private:
-    props fans = props(10, 9, 6, 5);
+    props fans = props(10, 6, 9, 5);
     sensors sensor;
 
 };

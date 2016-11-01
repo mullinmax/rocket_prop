@@ -14,6 +14,7 @@ class sensors {
       Wire.endTransmission(true);
       Serial.begin(9600);
     }
+    
     void calibrate() {
       read_values(400);
       cacx = acx;
@@ -24,6 +25,7 @@ class sensors {
       cgyy = gyy;
       cgyz = gyz;
     }
+    
     void read_values(float s) {
       Wire.beginTransmission(address);
       Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
@@ -38,6 +40,7 @@ class sensors {
       gyz = Wire.read() << 8 | Wire.read(); // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
       smooth(s);
     }
+    
     void smooth(float s) {
       acx = (acx + pacx * s) / (s + 1);
       acy = (acy + pacy * s) / (s + 1);
@@ -47,6 +50,7 @@ class sensors {
       gyy = (gyy + pgyy * s) / (s + 1);
       gyz = (gyz + pgyz * s) / (s + 1);
     }
+    
     int address = 0x68;
     float acx, acy, acz, tmp, gyx, gyy, gyz;
     float pacx, pacy, pacz, ptmp, pgyx, pgyy, pgyz;
