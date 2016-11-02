@@ -76,15 +76,15 @@ class props {
       tmp_s_vel += minimum_pulse;
       tmp_e_vel += minimum_pulse;
       tmp_w_vel += minimum_pulse;
-      int s = 4;
+      int s = 8;
       n_vel = (n_vel*4+tmp_n_vel)/(s+1);
       s_vel = (s_vel*4+tmp_s_vel)/(s+1);
       e_vel = (e_vel*4+tmp_e_vel)/(s+1);
       w_vel = (w_vel*4+tmp_w_vel)/(s+1);
       analogWrite(n_pin, n_vel);
       analogWrite(s_pin, s_vel);
-      analogWrite(e_pin, e_vel);
-      analogWrite(w_pin, w_vel);
+      //analogWrite(e_pin, e_vel);
+      //analogWrite(w_pin, w_vel);
     }
     //set all fans to the same speed
     void set_speed(int vel) {
