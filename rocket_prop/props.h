@@ -83,8 +83,8 @@ class props {
       w_vel = (w_vel*4+tmp_w_vel)/(s+1);
       analogWrite(n_pin, n_vel);
       analogWrite(s_pin, s_vel);
-      //analogWrite(e_pin, e_vel);
-      //analogWrite(w_pin, w_vel);
+      analogWrite(e_pin, e_vel);
+      analogWrite(w_pin, w_vel);
     }
     //set all fans to the same speed
     void set_speed(int vel) {

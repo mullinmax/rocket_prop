@@ -20,10 +20,10 @@ class frame {
 
     void control() {
       read_sensors();
-      float tol = .01;
+      float tol = 0;//.01;
       if (sensor.gyy + tol < 0) {
         if (sensor.gyz + tol < 0) {
-          fans.set_speed(1, 1100, 100, 1);
+          fans.set_speed(1, 100, 100, 1);
         } else if (sensor.gyz - tol > 0) {
           fans.set_speed(1, 100, 1, 100);
         } else {
